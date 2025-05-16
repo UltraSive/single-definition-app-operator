@@ -1,0 +1,32 @@
+apiVersion: packetwareapp.apps.packetware.net/v1
+kind: App
+metadata:
+  name: mysql-app
+  namespace: mysql
+spec:
+  image: mysql:5.7
+  args:
+    - "--ignore-db-dir=lost+found"
+  resources:
+    limits:
+      memory: "4096Mi"
+      cpu: "100m"
+  replicas: 1
+  ports:
+    - name: mysql-port
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+  appType: "TCP"
+  env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: rootpassword
+#    - name: MYSQL_DATABASE
+#      value: my_database
+#    - name: MYSQL_USER
+#      value: user
+#    - name: MYSQL_PASSWORD
+#      value: userpassword
+  volumes:
+    - name: mysql-app-pvc
+      mountPath: "/var/lib/mysql"

@@ -1,0 +1,22 @@
+apiVersion: packetwareapp.apps.packetware.net/v1
+kind: App
+metadata:
+  name: my-app-1
+#  namespace: test
+spec:
+  image: crccheck/hello-world
+  resources:
+    limits:
+      memory: "1024Mi"
+      cpu: "100m"
+  replicas: 1
+  ports:
+    - name: http-port
+      port: 8000
+      protocol: TCP
+      targetPort: 8000
+  appType: "TCP"
+  #private: true
+  #volumeClaims:
+  #  - claimName: my-longhorn-pvc
+  #    mountPath: "/path/in/container"
